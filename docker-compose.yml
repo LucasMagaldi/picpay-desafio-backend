@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api-picpay-challenge:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=api-picpay-challenge
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=picpay-challenge
