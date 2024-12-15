@@ -1,3 +1,5 @@
+import { userSchema } from "./schemas/user-schema.js";
+
 export const routes = {
     '/': (req, res) => {
         res.writeHead(200, {
@@ -12,14 +14,26 @@ export const routes = {
                 body += chunk;
             });
             req.on('end', () => {
-                console.log('Dados recebidos:', body);
-
-                res.writeHead(201, {
-                    'Content-Type': 'application/json'
-                });
-                res.end(JSON.stringify({
-                    message: 'Resource Ok'
-                }));
+                try {
+                    const data = JSON.parse(body)
+                    userSchema.parse(data)
+                    res.writeHead(201, {
+                        'Content-Type': 'application/json'
+                    });
+                    res.end(JSON.stringify({
+                        message: 'Resource Ok'
+                    }));                    
+                } catch (error) {
+                    res.writeHead(400, {
+                        'Content-Type': 'application/json'
+                    })
+                    res.end(
+                        JSON.stringify({
+                            error: 'Invalid request',
+                            message: error
+                        })
+                    )
+                }
             });
         }
     }

@@ -5,5 +5,8 @@ POST {{baseURL}}/user
 Content-Type: application/json
 
 {
-    "name": "Lucas"
+    "name": "Lucas",
+    "email": "lucas.magaldi@hotmail.com",
+    "type": "lojista",
+    "cpf": "09882755976"
 }
