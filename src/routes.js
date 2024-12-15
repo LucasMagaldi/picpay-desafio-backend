@@ -1,4 +1,5 @@
 import { userSchema } from "./schemas/user-schema.js";
+import { UserService } from "./services/user-services.js";
 
 export const routes = {
     '/': (req, res) => {
@@ -15,8 +16,10 @@ export const routes = {
             });
             req.on('end', () => {
                 try {
+                    const userService = new UserService()
                     const data = JSON.parse(body)
                     userSchema.parse(data)
+                    userService.execute(data.type, data.name, data.email, data.CPF)
                     res.writeHead(201, {
                         'Content-Type': 'application/json'
                     });
