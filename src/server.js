@@ -1,5 +1,6 @@
 import http from  'http'
 import { routes } from './routes.js';
+import { sequelize } from './db/index.js';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -15,6 +16,11 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(port, hostname, async () => {
+    try {
+        await sequelize.authenticate()
+        console.log(`Server running at http://${hostname}:${port}/`); 
+    } catch (error) {
+        throw new Error(error)
+    }
 });
