@@ -1,4 +1,4 @@
-export class UserService {
+export class CreateUserService {
     constructor() {}
 
     async execute(type, name, email, CPF) {

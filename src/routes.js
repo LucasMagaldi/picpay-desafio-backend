@@ -1,5 +1,5 @@
 import { userSchema } from "./schemas/user-schema.js";
-import { UserService } from "./services/user-services.js";
+import { CreateUserService } from "./services/user/user-services.js";
 
 export const routes = {
     '/': (req, res) => {
@@ -16,7 +16,7 @@ export const routes = {
             });
             req.on('end', () => {
                 try {
-                    const userService = new UserService()
+                    const userService = new CreateUserService()
                     const data = JSON.parse(body)
                     userSchema.parse(data)
                     userService.execute(data.type, data.name, data.email, data.CPF)
